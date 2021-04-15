@@ -1,30 +1,53 @@
 package deliveryback.delivery.mgr.imp;
 
-import deliveryback.delivery.dto.ProductosRequest;
+import java.util.ArrayList;
+import java.util.List;
+
+import deliveryback.delivery.dto.ProductosDto;
+import deliveryback.delivery.entity.Beverage;
+import deliveryback.delivery.entity.Electronics;
+import deliveryback.delivery.entity.Food;
+import deliveryback.delivery.entity.Product;
 import deliveryback.delivery.mgr.ProductManager;
 
 public class ProductManagerImp implements ProductManager {
 
 	@Override
-	public void createProduct(ProductosRequest productosDTO) {
+	public String createProduct(ProductosDto productosDTO) {
 		
-		// Validar tipo de categoria
+		Product productInfo = EvaluateCategory(productosDTO);
 		
+		// Guardado de informacion?
 		
-		// Crear objectoo producto con su categoria ya asignada.
+		return "OK";
 			
 	}
 
 	@Override
-	public void searchProduct(String category) {
+	public List<ProductosDto> searchProduct(String category) {
 		// TODO Auto-generated method stub
+		List<ProductosDto> list = new ArrayList<ProductosDto>();
+		
+		return list;
 		
 	}
 	
 	
 	
-	private void EvaluateCategory(ProductosRequest productosDTO) {
-		// IF SWITCH 
+	private Product EvaluateCategory(ProductosDto productosDTO) {
+		
+		switch (productosDTO.getCategoryType()) {
+		case "Comida":
+			return new Food(productosDTO);
+		case "Electro":
+			return new Electronics(productosDTO);
+		case "Bebida":
+			return new Beverage(productosDTO);
+		default:
+			// Validar exception
+			return null;
+		}
+			
 	}
 
 }

@@ -1,12 +1,16 @@
 package deliveryback.delivery.mgr;
 
-import deliveryback.delivery.dto.ProductosRequest;
+
+
+import java.util.List;
+
+import deliveryback.delivery.dto.ProductosDto;
 
 public interface ProductManager {
 	
-	public void createProduct(ProductosRequest productosDTO);
+	public String createProduct(ProductosDto productosDTO);
 	
-	public void searchProduct(String category);
+	public List<ProductosDto> searchProduct(String category);
 	
 
 }
