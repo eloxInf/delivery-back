@@ -8,7 +8,9 @@ public class ProductManagerImp implements ProductManager {
 	@Override
 	public void createProduct(ProductosRequest productosDTO) {
 		
-		// Validar tipo de categoria		
+		// Validar tipo de categoria
+		
+		
 		// Crear objectoo producto con su categoria ya asignada.
 			
 	}
@@ -23,7 +25,6 @@ public class ProductManagerImp implements ProductManager {
 	
 	private void EvaluateCategory(ProductosRequest productosDTO) {
 		// IF SWITCH 
-		
 	}
 
 }
