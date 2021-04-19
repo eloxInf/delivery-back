@@ -19,7 +19,12 @@ public class ProductManagerImp implements ProductManager {
 		
 		// Guardado de informacion?
 		
-		return "OK";
+		if (productInfo.getIsValid()) {
+			return "OK";
+		}
+		else {
+			return "Fail";
+		}
 			
 	}
 

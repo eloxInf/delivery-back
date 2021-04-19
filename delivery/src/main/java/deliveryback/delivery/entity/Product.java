@@ -7,13 +7,27 @@ public abstract class Product {
 	private int salesValue;
 	private int purcheValue;
 	private Boolean isValid;
-	
-	
+
+	/**
+	 * @return the isValid
+	 */
+	public Boolean getIsValid() {
+		return isValid;
+	}
+
+	/**
+	 * @param isValid the isValid to set
+	 */
+	public void setIsValid(Boolean isValid) {
+		this.isValid = isValid;
+	}
+
 	public void ValidateCreate(double taxes) {
-		if(purcheValue-salesValue > taxes*purcheValue) {
+		if (salesPorc(salesValue, purcheValue) > (taxes) ) {
 			isValid = true;
+		} else {
+			isValid = false;
 		}
-		isValid = false;
 	}
 
 	/**
@@ -71,6 +85,8 @@ public abstract class Product {
 	public void setPurcheValue(int purcheValue) {
 		this.purcheValue = purcheValue;
 	}
-	
-	
+
+	private double salesPorc(int salesValue, int purcheValue) {
+		return (salesValue - purcheValue)/purcheValue;
+	}
 }

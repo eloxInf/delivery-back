@@ -59,7 +59,7 @@ public class Fixture {
 	
 	public static ProductosDto crearProductoBebidasOK() {
 		ProductosDto newProduct = new ProductosDto();
-		newProduct.setCategoryType("Bebidas");
+		newProduct.setCategoryType("Bebida");
 		newProduct.setExpirationDate("13/05/2025");
 		newProduct.setName("Fanta");
 		newProduct.setPlugType(null);
@@ -72,7 +72,7 @@ public class Fixture {
 	
 	public static ProductosDto crearProductoBebidasFail() {
 		ProductosDto newProduct = new ProductosDto();
-		newProduct.setCategoryType("Bebidas");
+		newProduct.setCategoryType("Bebida");
 		newProduct.setExpirationDate("13/05/2025");
 		newProduct.setName("Fanta");
 		newProduct.setPlugType(null);
