@@ -9,11 +9,10 @@ import deliveryback.delivery.mgr.ProductManager;
 
 public class ProductManagerImp implements ProductManager {
 
-	private List<Product> list;
+	private List<Product> list = new ArrayList<Product>();
 
 	@Override
 	public String createProduct(ProductosDto productosDTO) {
-		list = new ArrayList<Product>();
 		Product productInfo = evaluateCategory(productosDTO);
 		if (productInfo.isValid()) {
 			list.add(productInfo);
