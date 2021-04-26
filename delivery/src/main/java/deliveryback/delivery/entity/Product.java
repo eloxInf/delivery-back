@@ -30,18 +30,21 @@ public class Product {
 		this.name = productosDTO.getName();
 		this.salesValue = productosDTO.getSalesValue();
 		this.purcheValue = productosDTO.getPurcheValue();
+		this.isValid = false;
 		switch (productosDTO.getCategoryType()) {
 		case Constant.NAME_FOOD:
 			ValidateCreate(Constant.TAXES_FOOD);
 			this.category = new Food(productosDTO);
+			break;
 		case Constant.NAME_ELECTRONICS:
 			ValidateCreate(Constant.TAXES_ELECTRONICS);
 			this.category = new Electronics(productosDTO);
+			break;
 		case Constant.NAME_BEVERAGE:
 			ValidateCreate(Constant.TAXES_BEVERAGE);
 			this.category = new Beverage(productosDTO);
+			break;
 		default:
-			this.isValid = false;
 			this.category = new Other();
 		}
 
