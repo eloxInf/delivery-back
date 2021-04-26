@@ -4,55 +4,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 import deliveryback.delivery.dto.ProductosDto;
-import deliveryback.delivery.entity.Beverage;
-import deliveryback.delivery.entity.Electronics;
-import deliveryback.delivery.entity.Food;
 import deliveryback.delivery.entity.Product;
 import deliveryback.delivery.mgr.ProductManager;
 
 public class ProductManagerImp implements ProductManager {
 
+	private List<Product> list;
+
 	@Override
 	public String createProduct(ProductosDto productosDTO) {
-		
-		Product productInfo = EvaluateCategory(productosDTO);
-		
-		// Guardado de informacion?
-		
-		if (productInfo.getIsValid()) {
+		list = new ArrayList<Product>();
+		Product productInfo = evaluateCategory(productosDTO);
+		if (productInfo.isValid()) {
+			list.add(productInfo);
 			return "OK";
 		}
-		else {
-			return "Fail";
-		}
-			
+		return "Fail";
+	}
+
+	private Product evaluateCategory(ProductosDto productosDTO) {
+		return new Product(productosDTO);
 	}
 
 	@Override
-	public List<ProductosDto> searchProduct(String category) {
-		// TODO Auto-generated method stub
-		List<ProductosDto> list = new ArrayList<ProductosDto>();
-		
-		return list;
-		
-	}
-	
-	
-	
-	private Product EvaluateCategory(ProductosDto productosDTO) {
-		
-		switch (productosDTO.getCategoryType()) {
-		case "Comida":
-			return new Food(productosDTO);
-		case "Electro":
-			return new Electronics(productosDTO);
-		case "Bebida":
-			return new Beverage(productosDTO);
-		default:
-			// Validar exception
-			return null;
+	public Product searchOnlyProduct(String sku) {
+		for(Product a : list) {
+			if(a.isProduct(sku)) {
+				return a;
+			}
 		}
-			
+		return null;
 	}
 
+	@Override
+	public List<Product> searchProduct(String category) {
+		List<Product> listResponse = new ArrayList<Product>();
+		for(Product a : list) {
+			if(a.getCategory().isCategory(category)) {
+				listResponse.add(a);
+			}
+		}
+		return listResponse;
+
+	}
 }

@@ -1,33 +1,57 @@
 package deliveryback.delivery.entity;
 
-public abstract class Product {
+import deliveryback.delivery.constant.Constant;
+import deliveryback.delivery.dto.ProductosDto;
+
+public class Product {
 
 	private String sku;
 	private String name;
 	private int salesValue;
 	private int purcheValue;
-	private Boolean isValid;
+	private boolean isValid;
+	private Category category;
 
-	/**
-	 * @return the isValid
-	 */
-	public Boolean getIsValid() {
-		return isValid;
-	}
-
-	/**
-	 * @param isValid the isValid to set
-	 */
-	public void setIsValid(Boolean isValid) {
-		this.isValid = isValid;
-	}
-
-	public void ValidateCreate(double taxes) {
+	private void ValidateCreate(double taxes) {
 		if (salesPorc(salesValue, purcheValue) > (taxes) ) {
 			isValid = true;
 		} else {
 			isValid = false;
 		}
+	}
+
+	private double salesPorc(int salesValue, int purcheValue) {
+		return (salesValue - purcheValue)/purcheValue;
+	}
+
+	public Product(ProductosDto productosDTO) {
+		super();
+		this.sku = productosDTO.getSku();
+		this.name = productosDTO.getName();
+		this.salesValue = productosDTO.getSalesValue();
+		this.purcheValue = productosDTO.getPurcheValue();
+		switch (productosDTO.getCategoryType()) {
+		case Constant.NAME_FOOD:
+			ValidateCreate(Constant.TAXES_FOOD);
+			this.category = new Food(productosDTO);
+		case Constant.NAME_ELECTRONICS:
+			ValidateCreate(Constant.TAXES_ELECTRONICS);
+			this.category = new Electronics(productosDTO);
+		case Constant.NAME_BEVERAGE:
+			ValidateCreate(Constant.TAXES_BEVERAGE);
+			this.category = new Beverage(productosDTO);
+		default:
+			this.isValid = false;
+			this.category = new Other();
+		}
+
+	}
+
+	/**
+	 * @return the isValid
+	 */
+	public boolean isValid() {
+		return isValid;
 	}
 
 	/**
@@ -38,24 +62,10 @@ public abstract class Product {
 	}
 
 	/**
-	 * @param sku the sku to set
-	 */
-	public void setSku(String sku) {
-		this.sku = sku;
-	}
-
-	/**
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	/**
@@ -66,13 +76,6 @@ public abstract class Product {
 	}
 
 	/**
-	 * @param salesValue the salesValue to set
-	 */
-	public void setSalesValue(int salesValue) {
-		this.salesValue = salesValue;
-	}
-
-	/**
 	 * @return the purcheValue
 	 */
 	public int getPurcheValue() {
@@ -80,13 +83,19 @@ public abstract class Product {
 	}
 
 	/**
-	 * @param purcheValue the purcheValue to set
+	 * @return the category
 	 */
-	public void setPurcheValue(int purcheValue) {
-		this.purcheValue = purcheValue;
+	public Category getCategory() {
+		return category;
 	}
 
-	private double salesPorc(int salesValue, int purcheValue) {
-		return (salesValue - purcheValue)/purcheValue;
+	public boolean isProduct(String sku) {
+		if (sku == this.sku) {
+			return true;
+		}
+		return false;
 	}
+	
+	
+	
 }

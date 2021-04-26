@@ -3,20 +3,10 @@ package deliveryback.delivery.entity;
 import deliveryback.delivery.constant.Constant;
 import deliveryback.delivery.dto.ProductosDto;
 
-public class Beverage extends Product{
+public class Beverage implements Category {
 
 	private String expirationDate;
 	
-	public Beverage(ProductosDto productosRequest){	
-		this.setName(productosRequest.getName());
-		this.setSku(productosRequest.getSku());
-		this.setSalesValue(productosRequest.getSalesValue());
-		this.setPurcheValue(productosRequest.getPurcheValue());
-		this.setExpirationDate(productosRequest.getExpirationDate());
-		
-		this.ValidateCreate(Constant.TAXES_FOOD);
-	}
-
 	/**
 	 * @return the expirationDate
 	 */
@@ -24,11 +14,17 @@ public class Beverage extends Product{
 		return expirationDate;
 	}
 
-	/**
-	 * @param expirationDate the expirationDate to set
-	 */
-	public void setExpirationDate(String expirationDate) {
-		this.expirationDate = expirationDate;
+	public Beverage(ProductosDto productosDTO) {
+		this.expirationDate = productosDTO.getExpirationDate();
 	}
-	
+
+
+	@Override
+	public boolean isCategory(String category) {
+		if(category.equals(Constant.NAME_BEVERAGE)) {
+			return true;
+		}
+		return false;
+	}
+
 }
